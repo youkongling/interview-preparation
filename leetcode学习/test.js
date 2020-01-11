@@ -29,67 +29,93 @@
 // console.log("result ", result)
 
 
-function mergeSort(arr){
-  if (arr.length < 2) return arr
+// function mergeSort(arr){
+//   if (arr.length < 2) return arr
   
-  let step = 1 
-  let left, right
-  while (step < arr.length) {
-    left = 0
-    right = step
+//   let step = 1 
+//   let left, right
+//   while (step < arr.length) {
+//     left = 0
+//     right = step
 
-    while (right + step <= arr.length) {
-      mergeArrays(arr, left, left + step, right, right + step)
-      left = right + step
-      right = left + step
-    }
+//     while (right + step <= arr.length) {
+//       mergeArrays(arr, left, left + step, right, right + step)
+//       left = right + step
+//       right = left + step
+//     }
 
-    if (right < arr.length) {
-      mergeArrays(arr, left, left + step, right, arr.length)
-    }
+//     if (right < arr.length) {
+//       mergeArrays(arr, left, left + step, right, arr.length)
+//     }
 
-    step *= 2
-  }
-}
+//     step *= 2
+//   }
+// }
 
-function mergeArrays(arr, startLeft, stopLeft, startRight, stopRight){
+// function mergeArrays(arr, startLeft, stopLeft, startRight, stopRight){
 
-  let rightArr = new Array(stopRight - startRight + 1)
-  let leftArr = new Array(stopLeft - startLeft + 1)
+//   let rightArr = new Array(stopRight - startRight + 1)
+//   let leftArr = new Array(stopLeft - startLeft + 1)
   
-  k = startRight
+//   k = startRight
 
-  for (let i=0; i < (rightArr.length - 1); ++i) {
-    rightArr[i] = arr[k]
-    ++k
-  }
+//   for (let i=0; i < (rightArr.length - 1); ++i) {
+//     rightArr[i] = arr[k]
+//     ++k
+//   }
    
-  k = startLeft
-  for (let i=0; i < (leftArr.length - 1); ++i) {
-    leftArr[i] = arr[k]
-    ++k
-  }
+//   k = startLeft
+//   for (let i=0; i < (leftArr.length - 1); ++i) {
+//     leftArr[i] = arr[k]
+//     ++k
+//   }
   
-  rightArr[rightArr.length - 1] = Infinity
-  leftArr[leftArr.length - 1] = Infinity
-  let m = 0
-  let n = 0
+//   rightArr[rightArr.length - 1] = Infinity
+//   leftArr[leftArr.length - 1] = Infinity
+//   let m = 0
+//   let n = 0
   
-  for (let k = startLeft; k < stopRight; ++k) {
-    if (leftArr[m] <= rightArr[n]) {
-      arr[k] = leftArr[m]
-      m++
-    }
+//   for (let k = startLeft; k < stopRight; ++k) {
+//     if (leftArr[m] <= rightArr[n]) {
+//       arr[k] = leftArr[m]
+//       m++
+//     }
 
-    else{
-      arr[k] = rightArr[n]
-      n++
+//     else{
+//       arr[k] = rightArr[n]
+//       n++
+//     }
+//   }
+// }
+
+// const num = [6, 10, 1, 4, 19, 8, 3, 7, 16]
+// console.log("num ", num)
+
+// const result = mergeSort(num)
+// console.log("result ", result)
+
+
+let quickSort = function(arr) {
+  if (arr.length < 2) return arr
+
+  let piovtIndex = Math.floor(arr.length / 2)
+  let piovt = arr.splice(piovtIndex, 1)[0]
+  let left = []
+  let right = []
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < piovt) {
+      left.push(arr[i])
+    } else {
+      right.push(arr[i])
     }
   }
+
+  return quickSort(left).concat([piovt], quickSort(right))
 }
 
 const num = [6, 10, 1, 4, 19, 8, 3, 7, 16]
 console.log("num ", num)
 
-const result = mergeSort(num)
+const result = quickSort(num)
 console.log("result ", result)

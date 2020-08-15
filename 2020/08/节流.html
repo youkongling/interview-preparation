@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1" />
+    <title>debounce</title>
+    <style>
+      #container {
+        width: 100%;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        color: #fff;
+        background-color: #444;
+        font-size: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container"></div>
+    <script>
+      let count = 1;
+      const container = document.getElementById('container');
+
+      function getUserAction(e) {
+        container.innerHTML = count++;
+      };
+
+      // function throttle(func, wait) {
+      //   let context, args
+      //   let previous = 0
+
+      //   return function() {
+      //     let now = +new Date()
+      //     context = this
+      //     args = arguments
+      //     if (now - previous > wait) {
+      //       func.apply(context, args)
+      //       previous = now
+      //     }
+      //   }
+      // }
+
+      function throttle(func, wait) {
+        let timeout, previous = 0, context
+
+        return function () {
+          context = this
+          args = arguments
+          if (!timeout) {
+            timeout = setTimeout(function() {
+              timeout = null
+              func.apply(context, args)
+            })
+          }
+        }
+      }
+
+      container.onmousemove = throttle(getUserAction, 1000);
+    </script>
+  </body>
+</html>
